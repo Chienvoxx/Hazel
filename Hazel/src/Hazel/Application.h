@@ -13,7 +13,7 @@ namespace Hazel {
 		void Run();
 	};
 
-	// TO be defined in client
+	// To be defined in client
 	Application* CreateApplication();
 
 }
