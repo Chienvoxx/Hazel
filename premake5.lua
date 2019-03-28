@@ -8,9 +8,13 @@ workspace "Hazel"
 		"Dist"
 	}
 
-
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
+
+include "Hazel/vendor/GLFW"
 
 project "Hazel"
 	location "Hazel"
@@ -31,41 +35,44 @@ project "Hazel"
 
 	includedirs
 	{
+		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{prj.name}/src"
+		"%{IncludeDir.GLFW}"
 	}
 
+	links 
+	{ 
+		"GLFW",
+		"opengl32.lib"
+	}
 
 	filter "system:windows"
-		 cppdialect "C++17"
-		 staticruntime "On"
-		 systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "On"
+		systemversion "latest"
 
-		 defines
-		 {
-		 	 "HZ_PLATFORM_WINDOWS",
-		 	 "HZ_BUILD_DLL"
-		 }
+		defines
+		{
+			"HZ_PLATFORM_WINDOWS",
+			"HZ_BUILD_DLL"
+		}
 
-		 postbuildcommands
-		 {
-		 	 ("{copy} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-		 }
+		postbuildcommands
+		{
+			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+		}
 
 	filter "configurations:Debug"
-		defines "HZ_DEBUG"
+		defines {"HZ_DEBUG","HZ_ENABLE_ASSERTS"}
 		symbols "On"
 
 	filter "configurations:Release"
-		defines "HZ_RELEASE"
+		defines {"HZ_RELEASE"}
 		optimize "On"
-
 
 	filter "configurations:Dist"
-		defines "HZ_DIST"
+		defines {"HZ_DIST"}
 		optimize "On"
-
-
 
 project "Sandbox"
 	location "Sandbox"
@@ -93,24 +100,23 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		 cppdialect "C++17"
-		 staticruntime "On"
-		 systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "On"
+		systemversion "latest"
 
-		 defines
-		 {
-		 	 "HZ_PLATFORM_WINDOWS",
-		 }
+		defines
+		{
+			"HZ_PLATFORM_WINDOWS"
+		}
 
 	filter "configurations:Debug"
-		defines "HZ_DEBUG"
+		defines {"HZ_DEBUG","HZ_ENABLE_ASSERTS"}
 		symbols "On"
 
 	filter "configurations:Release"
-		defines "HZ_RELEASE"
+		defines {"HZ_RELEASE"}
 		optimize "On"
 
-
 	filter "configurations:Dist"
-		defines "HZ_DIST"
+		defines {"HZ_DIST"}
 		optimize "On"
