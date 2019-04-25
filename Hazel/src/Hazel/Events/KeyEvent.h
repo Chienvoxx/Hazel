@@ -35,7 +35,7 @@ namespace Hazel {
 		}
 
 		EVENT_CLASS_TYPE(KeyPressed)
-
+		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 
 	private:
 		int m_RepeatCount;
