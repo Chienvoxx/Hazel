@@ -7,8 +7,8 @@
     <Filter Include="Hazel\Events">
       <UniqueIdentifier>{5DEF92FE-4952-22A3-F2D7-5A59DE19EE25}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Hazel\Platform">
-      <UniqueIdentifier>{0D422A0B-F90F-1E11-E2A3-8E37CE10FA75}</UniqueIdentifier>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,27 +34,39 @@
     <ClInclude Include="src\Hazel\Events\MouseEvent.h">
       <Filter>Hazel\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Hazel\Layer.h">
+      <Filter>Hazel</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hazel\LayerStack.h">
+      <Filter>Hazel</Filter>
+    </ClInclude>
     <ClInclude Include="src\Hazel\Log.h">
       <Filter>Hazel</Filter>
     </ClInclude>
     <ClInclude Include="src\Hazel\Window.h">
       <Filter>Hazel</Filter>
     </ClInclude>
-    <ClInclude Include="src\hzpch.h" />
     <ClInclude Include="src\Platform\WindowsWindow.h">
-      <Filter>Hazel\Platform</Filter>
+      <Filter>Platform</Filter>
     </ClInclude>
+    <ClInclude Include="src\hzpch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hazel\Application.cpp">
       <Filter>Hazel</Filter>
     </ClCompile>
+    <ClCompile Include="src\Hazel\Layer.cpp">
+      <Filter>Hazel</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hazel\LayerStack.cpp">
+      <Filter>Hazel</Filter>
+    </ClCompile>
     <ClCompile Include="src\Hazel\Log.cpp">
       <Filter>Hazel</Filter>
     </ClCompile>
-    <ClCompile Include="src\hzpch.cpp" />
     <ClCompile Include="src\Platform\WindowsWindow.cpp">
-      <Filter>Hazel\Platform</Filter>
+      <Filter>Platform</Filter>
     </ClCompile>
+    <ClCompile Include="src\hzpch.cpp" />
   </ItemGroup>
 </Project>
