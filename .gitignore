@@ -3,6 +3,7 @@
 bin/
 bin-int/
 Hazel/vendor/GLFW/
+Hazel/vendor/imgui/
 
 
 # Files
