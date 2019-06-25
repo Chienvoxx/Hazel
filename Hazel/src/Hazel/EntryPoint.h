@@ -9,8 +9,7 @@ int main(int argc, char** argv)
 {
 	Hazel::Log::Init();
 	HZ_CORE_WARN("Initialized Core Logger! Set level to 'warn'");
-	int a = 5;
-	HZ_INFO("Initialized Client Logger! Set level to 'info' Var={0}", a);
+	HZ_INFO("Initialized Client Logger! Set level to 'info'");
 
 
 	auto app = Hazel::CreateApplication();
