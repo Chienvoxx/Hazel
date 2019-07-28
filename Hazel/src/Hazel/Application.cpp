@@ -20,6 +20,9 @@ namespace Hazel {
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
@@ -61,17 +64,17 @@ namespace Hazel {
 
 		while (m_running)
 		{
-			glClearColor(0.2, 0.2, 0.2, 1);
+			glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
-			//bool space = Input::IsKeyPressed(340);
-			//HZ_CORE_INFO("{0}", space);
-			//bool mousebutton = Input::IsMouseButtonPressed(1);
-			//HZ_CORE_WARN("{0}", mousebutton);
 
+			m_ImGuiLayer->begin();
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiRender();
+			m_ImGuiLayer->end();
 
 
 			m_Window->OnUpdate();

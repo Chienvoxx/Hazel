@@ -1,5 +1,7 @@
 #include <Hazel.h>
 
+#include "ImGui/imgui.h"
+
 class ExampleLayer : public Hazel::Layer
 {
 public:
@@ -13,6 +15,18 @@ public:
 
 		//if(Hazel::Input::IsKeyPressed(HZ_KEY_TAB))
 		//HZ_INFO("ExampleLayer::OnUpdate::Tab Key Pressed!");
+
+	}
+
+	virtual void OnImGuiRender()
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello from Test!!");
+		ImGui::End();
+
+		ImGui::Begin("Programming");
+		ImGui::Text("Hello from Programming!!");
+		ImGui::End();
 
 	}
 
@@ -36,7 +50,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Hazel::ImGuiLayer());
 	}
 
 	~Sandbox()

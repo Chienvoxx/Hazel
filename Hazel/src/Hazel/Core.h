@@ -2,11 +2,20 @@
 
 
 #ifdef HZ_PLATFORM_WINDOWS
-	#ifdef HZ_BUILD_DLL
-		#define HAZEL_API __declspec(dllexport)
+	/*	The project was changed from dynamic to static library in 
+		Static Libraries and ZERO Warnings | Game Engine series
+		https://www.youtube.com/watch?v=TlvmnoDlrI0
+	*/
+	#ifdef HZ_DYNAMIC_LINK 
+
+		#ifdef HZ_BUILD_DLL
+			#define HAZEL_API (dllexport)
+		#else
+			#define HAZEL_API __declspec(dllimport)
+		#endif // HZ_BUILD_DLL
 	#else
-		#define HAZEL_API __declspec(dllimport)
-	#endif // HZ_BUILD_DLL
+		#define HAZEL_API
+	#endif
 #else 
 	#error Hazel only supports Windows!
 #endif
