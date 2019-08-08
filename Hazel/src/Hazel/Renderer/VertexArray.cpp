@@ -13,8 +13,8 @@ namespace Hazel {
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::none:		HZ_CORE_ASSERT(false, "RendererAPI::none is currently not supported."); return nullptr;
-		case RendererAPI::OpenGL:	return new OpenGLVertexArray();
+		case RendererAPI::API::OpenGL:	return new OpenGLVertexArray();
+		case RendererAPI::API::None:		HZ_CORE_ASSERT(false, "RendererAPI::none is currently not supported."); return nullptr;
 		}
 
 		HZ_CORE_ASSERT(false, "Unknown RendererAPI!");
