@@ -115,7 +115,8 @@ project "Sandbox"
 		"Hazel/vendor/spdlog/include",
 		"Hazel/src",
 		"Hazel/vendor",
-		"%{IncludeDir.GLM}"
+		"%{IncludeDir.GLM}",
+		"Sandbox/src"
 	}
 
 	links

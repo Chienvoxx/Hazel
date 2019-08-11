@@ -9,10 +9,6 @@
 
 #include "Hazel/ImGui/ImGuiLayer.h"
 
-#include "Hazel/Renderer/Shader.h"
-#include "Hazel/Renderer/Buffer.h"
-#include "Hazel/Renderer/VertexArray.h"
-#include "Hazel/Renderer/OrthographicCamera.h"
 
 namespace Hazel {
 
@@ -40,14 +36,7 @@ namespace Hazel {
 		bool m_running = true;
 		LayerStack m_LayerStack;
 
-		std::shared_ptr<Shader> m_TriangleShader;
-		std::shared_ptr<VertexArray> m_TriangleVA;
 
-
-		std::shared_ptr<Shader> m_SquareShader;
-		std::shared_ptr<VertexArray> m_SqaureVA;
-
-		OrthographicCamera m_Camera;
 
 	private:
 		static Application* s_Instance;
