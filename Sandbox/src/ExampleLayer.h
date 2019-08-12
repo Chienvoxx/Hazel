@@ -9,7 +9,7 @@ public:
 	{
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Hazel::Timestep ts) override
 	{
 		//if(Hazel::Input::IsKeyPressed(HZ_KEY_TAB))
 		//HZ_INFO("ExampleLayer::OnUpdate::Tab Key Pressed!");
