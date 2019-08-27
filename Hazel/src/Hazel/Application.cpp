@@ -72,7 +72,7 @@ namespace Hazel {
 		while (m_running)
 		{
 
-			float time = (float)glfwGetTime(); // Should be in Platform::GetTime
+			float time = (float)glfwGetTime();			// Should be in Platform::GetTime
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
@@ -80,7 +80,7 @@ namespace Hazel {
 				layer->OnUpdate(timestep);
 
 
-			m_ImGuiLayer->begin();
+			m_ImGuiLayer->begin();						// Calling ImGui::NewFrame() first allows us to use Dear ImGui everywhere
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
 			m_ImGuiLayer->end();

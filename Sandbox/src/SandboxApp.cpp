@@ -248,8 +248,10 @@ public:
 
 	virtual void OnImGuiRender()
 	{
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
 		ImGui::Begin("Settings");
 		ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+		ImGui::DragFloat("global scale", &io.FontGlobalScale, 0.005f, 1.0f, 3.0f, "%.2f");      // scale everything
 		ImGui::End();
 
 		ImGui::Begin("m_Scale");

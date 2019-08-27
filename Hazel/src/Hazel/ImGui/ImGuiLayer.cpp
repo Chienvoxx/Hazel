@@ -31,6 +31,7 @@ namespace Hazel {
 
 	void ImGuiLayer::OnAttach()
 	{
+		
 		// Setup Dear ImGui context
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
@@ -41,6 +42,7 @@ namespace Hazel {
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows <--- Causing unhandled exception!! Commnent out one line or the other stops the crash
 		//io.ConfigViewportsNoAutoMerge = true;
 		//io.ConfigViewportsNoTaskBarIcon = true;
+		io.FontGlobalScale = 2.0f;									// See example in imgui_demo.cpp::ShowStyleEditor(&style); line 3375
 
 		// Setup Dear ImGui style
 		ImGui::StyleColorsDark();
@@ -74,9 +76,14 @@ namespace Hazel {
 
 	void ImGuiLayer::OnImGuiRender()
 	{
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
-		//ImGui::ShowUserGuide():
+		static bool p_open = true;
+		ImGui::ShowDemoWindow(&p_open);
+		//ImGui::ShowUserGuide();
+		//ImGui::ShowMetricsWindow(&show);
+		//ImGui::ShowFontSelector();
+
+		ImGuiStyle  style = ImGui::GetStyle();
+		ImGui::ShowStyleEditor(&style);
 	}
 
 	void ImGuiLayer::begin()
@@ -91,6 +98,7 @@ namespace Hazel {
 
 	void ImGuiLayer::end()
 	{
+		// Tell ImGui what size the window is
 		ImGuiIO& io = ImGui::GetIO();
 		Application& app = Application::Get();
 		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
@@ -98,6 +106,7 @@ namespace Hazel {
 
 		// Rendering
 		ImGui::Render();
+		ImGui::GetDrawData();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
 		// Update and Render additional Platform Windows
