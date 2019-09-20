@@ -73,6 +73,6 @@ namespace Hazel {
 		}
 
 		EVENT_CLASS_TYPE(KeyTyped)
-			EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
+		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 	};
 }

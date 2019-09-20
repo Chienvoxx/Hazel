@@ -1,13 +1,16 @@
 #pragma once
 
 
+// ------ Entry Point ------------------
 #include "Hazel/Application.h"
+#include "Hazel/EntryPoint.h"
+// -------------------------------------
 #include "Hazel/ImGui/ImGuiLayer.h"
 #include "Hazel/MouseButtonCodes.h"
 #include "Hazel/KeyCodes.h"
 #include "Hazel/Input.h"
 #include "Hazel/Layer.h"
-#include "Hazel/Log.h"
+//#include "Hazel/Log.h"
 #include "Hazel/Core/Timestep.h"
 
 // ------ Renderer --------------------
@@ -27,7 +30,3 @@
 
 
 // Temp include for testing
-
-// ------ Entry Point ------------------
-#include "Hazel/EntryPoint.h"
-// -------------------------------------

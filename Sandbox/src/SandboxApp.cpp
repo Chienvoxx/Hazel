@@ -15,6 +15,8 @@ public:
 	TestLayer()
 		: Layer("Test"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_SquarePosition(0.0f)
 	{
+		this->m_DebugName = "TestLayer";
+
 		m_TriangleVA.reset(Hazel::VertexArray::Create());
 
 		float vertices[3 * 7] = {
@@ -246,6 +248,7 @@ public:
 		Hazel::Renderer::EndScene();
 	}
 
+
 	virtual void OnImGuiRender()
 	{
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -258,6 +261,7 @@ public:
 		ImGui::InputFloat3("Texture Square Size", glm::value_ptr(m_Scale));
 		ImGui::End();
 	}
+
 
 	void OnEvent(Hazel::Event& event) override
 	{
