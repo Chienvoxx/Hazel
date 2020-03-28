@@ -1,7 +1,7 @@
-print("In glad")
-project "glad"
+project "ImGui"
 	kind "StaticLib"
-	language "C"
+	language "C++"
+	cppdialect "C++17"
 	staticruntime "on"
 	
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
@@ -9,27 +9,21 @@ project "glad"
 
 	files
 	{
-		"include/glad/glad.h",
-		"include/KHR/khrplatform.h",
-		"src/glad.c"
-	}
-
-	includedirs
-	{
-		"include"
+		"imconfig.h",
+		"imgui.h",
+		"imgui.cpp",
+		"imgui_draw.cpp",
+		"imgui_internal.h",
+		"imgui_widgets.cpp",
+		"imstb_rectpack.h",
+		"imstb_textedit.h",
+		"imstb_truetype.h",
+		"imgui_demo.cpp"
 	}
 	
 	filter "system:windows"
 		systemversion "latest"
 		
-		
-		files
-		{
-		}
-
-		defines 
-		{ 
-		}
 		
 	filter "configurations:Debug"
 		runtime "Debug"
