@@ -12,6 +12,7 @@
 #include "Hazel/Layer.h"
 //#include "Hazel/Log.h"
 #include "Hazel/Core/Timestep.h"
+#include "Hazel/OrthographicCameraController.h"
 
 // ------ Renderer --------------------
 #include "Hazel/Renderer/Renderer.h"

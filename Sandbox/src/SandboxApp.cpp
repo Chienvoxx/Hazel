@@ -13,7 +13,7 @@ class TestLayer : public Hazel::Layer
 {
 public:
 	TestLayer()
-		: Layer("Test"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_SquarePosition(0.0f)
+		: Layer("Test"), m_CameraController(1280.0f / 720.0f, true), m_SquarePosition(0.0f)
 	{
 		this->m_DebugName = "TestLayer";
 
@@ -140,6 +140,7 @@ public:
 		)";
 
 		m_FlatColorShader = Hazel::Shader::Create("FlatColorShader", flatColorVertexSrc, flatColorFragmentSrc);
+		m_ShaderLibrary.Load("assets/shaders/FlatColor.glsl");
 
 		std::string textureShaderVertexSrc = R"(
 			#version 460 core
@@ -188,31 +189,21 @@ public:
 	void OnUpdate(Hazel::Timestep ts) override
 	{
 
-		if (Hazel::Input::IsKeyPressed(HZ_KEY_Q))
-			m_CameraRotation += m_CameraRotationSpeed * ts;
-		else if (Hazel::Input::IsKeyPressed(HZ_KEY_E))
-			m_CameraRotation -= m_CameraRotationSpeed * ts;
+// 		if (Hazel::Input::IsKeyPressed(HZ_KEY_A))
+// 			m_SquarePosition.x -= m_SquareSpeed * ts;
+// 		else if (Hazel::Input::IsKeyPressed(HZ_KEY_D))
+// 			m_SquarePosition.x += m_SquareSpeed * ts;
+// 
+// 		if (Hazel::Input::IsKeyPressed(HZ_KEY_W))
+// 			m_SquarePosition.y += m_SquareSpeed * ts;
+// 		else if (Hazel::Input::IsKeyPressed(HZ_KEY_S))
+// 			m_SquarePosition.y -= m_SquareSpeed * ts;
 
-		if (Hazel::Input::IsKeyPressed(HZ_KEY_LEFT))
-			m_CameraPosition.x -= m_CameraMoveSpeed * ts;
-		else if (Hazel::Input::IsKeyPressed(HZ_KEY_RIGHT))
-			m_CameraPosition.x += m_CameraMoveSpeed * ts;
+		// Update
+		m_CameraController.OnUpdate(ts);
 
-		if (Hazel::Input::IsKeyPressed(HZ_KEY_DOWN))
-			m_CameraPosition.y -= m_CameraMoveSpeed * ts;
-		else if (Hazel::Input::IsKeyPressed(HZ_KEY_UP))
-			m_CameraPosition.y += m_CameraMoveSpeed * ts;
 
-		if (Hazel::Input::IsKeyPressed(HZ_KEY_A))
-			m_SquarePosition.x -= m_SquareSpeed * ts;
-		else if (Hazel::Input::IsKeyPressed(HZ_KEY_D))
-			m_SquarePosition.x += m_SquareSpeed * ts;
-
-		if (Hazel::Input::IsKeyPressed(HZ_KEY_W))
-			m_SquarePosition.y += m_SquareSpeed * ts;
-		else if (Hazel::Input::IsKeyPressed(HZ_KEY_S))
-			m_SquarePosition.y -= m_SquareSpeed * ts;
-
+		// Render
 		glm::mat4 transform = glm::translate(glm::mat4(1.0), m_SquarePosition);
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
@@ -220,16 +211,16 @@ public:
 		Hazel::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 		Hazel::RenderCommand::Clear();
 
-		m_Camera.SetPostion({ m_CameraPosition });
-		m_Camera.SetRotation(m_CameraRotation);
 
+		Hazel::Renderer::BeginScene(m_CameraController.GetCamera());
 
+// 		std::dynamic_pointer_cast<Hazel::OpenGLShader>(m_FlatColorShader)->Bind();
+// 		std::dynamic_pointer_cast<Hazel::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
 
-		Hazel::Renderer::BeginScene(m_Camera);
-
-		std::dynamic_pointer_cast<Hazel::OpenGLShader>(m_FlatColorShader)->Bind();
-		std::dynamic_pointer_cast<Hazel::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
-
+		auto flatColorShader = m_ShaderLibrary.Get("FlatColor");
+		std::dynamic_pointer_cast<Hazel::OpenGLShader>(flatColorShader)->Bind();
+		std::dynamic_pointer_cast<Hazel::OpenGLShader>(flatColorShader)->UploadUniformFloat3("u_Color", m_SquareColor);
+		
 		int c = 20;
 		for (int x = 0; x < c; x++)
 		{
@@ -237,7 +228,8 @@ public:
 			{
 				glm::vec3 pos(-((c/2)*0.11f) + (x * 0.11f), -((c/2) * 0.11f) + (y * 0.11f), 0.0f);
 				glm::mat4 tran = glm::translate(glm::mat4(1.0), pos) * scale;
-				Hazel::Renderer::Submit(m_FlatColorShader, m_SqaureVA, tran);
+// 				Hazel::Renderer::Submit(m_FlatColorShader, m_SqaureVA, tran);
+				Hazel::Renderer::Submit(flatColorShader, m_SqaureVA, tran);
 			}
 		}
 
@@ -266,8 +258,9 @@ public:
 	}
 
 
-	void OnEvent(Hazel::Event& event) override
+	void OnEvent(Hazel::Event& e) override
 	{
+		m_CameraController.OnEvent(e);
 	}
 
 
@@ -282,11 +275,7 @@ private:
 
 	Hazel::Ref<Hazel::Texture2D> m_Texture;
 
-	Hazel::OrthographicCamera m_Camera;
-	glm::vec3 m_CameraPosition;
-	float m_CameraMoveSpeed = 5.0f;
-	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 180.0f;
+	Hazel::OrthographicCameraController m_CameraController;
 
 	glm::vec3 m_SquarePosition;
 	float m_SquareSpeed = 1.0f;
