@@ -13,7 +13,7 @@ class TestLayer : public Hazel::Layer
 {
 public:
 	TestLayer()
-		: Layer("Test"), m_CameraController(1280.0f / 720.0f, true), m_SquarePosition(0.0f)
+		: Layer("Test"), m_CameraController(1280.0f / 720.0f, false), m_SquarePosition(0.0f)
 	{
 		this->m_DebugName = "TestLayer";
 
