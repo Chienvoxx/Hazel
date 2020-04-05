@@ -108,6 +108,10 @@ namespace Hazel {
 			m_Minimized = true;
 			return false;
 		}
+		if (m_Minimized == true && (e.GetWidth() > 0 || e.GetHeight() > 0))
+		{
+			m_Minimized = false;
+		}
 		
 		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
 		return false;
