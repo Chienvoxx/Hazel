@@ -9,6 +9,8 @@ Hazel/vendor/imgui/
 # Visual Studio files and folder
 .vs/
 **.sln
+Hazel.vcxproj
+Sandbox.vcxproj
 **.vcxproj
 **.vcxproj.filters
 *.user
