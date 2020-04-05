@@ -1,10 +1,14 @@
-# Directories
-.vs/
+# Binaries
 bin/
 bin-int/
+!vendor/bin/premake/
 Hazel/vendor/GLFW/
 Hazel/vendor/imgui/
 
 
-# Files
+# Visual Studio files and folder
+.vs/
+**.sln
+**.vcxproj
+**.vcxproj.filters
 *.user
