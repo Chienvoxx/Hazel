@@ -3,7 +3,7 @@
 #include "Application.h"
 #include "Log.h"
 
-#include "Hazel/Input.h"
+#include "Hazel/Core/Input.h"
 #include "Hazel/Renderer/Renderer.h"
 
 #include "glfw/glfw3.h"
