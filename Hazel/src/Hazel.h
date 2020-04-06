@@ -1,9 +1,8 @@
 #pragma once
 
 
-// ------ Entry Point ------------------
+
 #include "Hazel/Core/Application.h"
-#include "Hazel/Core/EntryPoint.h"
 // -------------------------------------
 #include "Hazel/ImGui/ImGuiLayer.h"
 #include "Hazel/Core/MouseButtonCodes.h"
