@@ -2,6 +2,8 @@
 #include "Hazel/Renderer/Renderer.h"
 #include "ImGui/imgui.h"
 #include "Platform/OpenGL/OpenGLShader.h"
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 
 Sandbox2D::Sandbox2D()
@@ -34,11 +36,9 @@ void Sandbox2D::OnUpdate(Hazel::Timestep ts)
 	Hazel::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
 
-	Hazel::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, m_SquareColor);
+	Hazel::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.25f, 1.0f }, m_SquareColor);
+	Hazel::Renderer2D::DrawQuad({ 1.0f, -0.5f }, { 1.0f, 0.25f }, m_SquareColor * 1.25f);
 	Hazel::Renderer2D::EndScene();
-	// TODO: Add these functions - Shader::SetMat4, Shader::SetFloat4
-// 	std::dynamic_pointer_cast<Hazel::OpenGLShader>(m_FlatColorShader)->Bind();
-// 	std::dynamic_pointer_cast<Hazel::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat4("u_Color", m_SquareColor);
 }
 
 void Sandbox2D::OnImGuiRender()
