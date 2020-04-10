@@ -74,17 +74,17 @@ namespace Hazel {
 		//glfwTerminate();
 	}
 
-	void ImGuiLayer::OnImGuiRender()
-	{
-		static bool p_open = true;
-		ImGui::ShowDemoWindow(&p_open);
-		//ImGui::ShowUserGuide();
-		//ImGui::ShowMetricsWindow(&show);
-		//ImGui::ShowFontSelector();
+// 	void ImGuiLayer::OnImGuiRender()
+// 	{
+// 		static bool p_open = true;
+// 		ImGui::ShowDemoWindow(&p_open);
+// 		ImGui::ShowUserGuide();
+// 		ImGui::ShowMetricsWindow(&show);
+// 		ImGui::ShowFontSelector();
 
-		ImGuiStyle  style = ImGui::GetStyle();
-		ImGui::ShowStyleEditor(&style);
-	}
+// 		ImGuiStyle  style = ImGui::GetStyle();
+// 		ImGui::ShowStyleEditor(&style);
+// 	}
 
 	void ImGuiLayer::begin()
 	{
