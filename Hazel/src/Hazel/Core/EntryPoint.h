@@ -8,14 +8,19 @@ extern Hazel::Application* Hazel::CreateApplication();
 int main(int argc, char** argv)
 {
 	Hazel::Log::Init();
-	HZ_CORE_WARN("Initialized Core Logger! Set level to 'warn'");
-	HZ_INFO("Initialized Client Logger! Set level to 'info'");
 
 
+	HZ_PROFILE_BEGIN_SESSION("Startup", "HazelProfile-Startup.json");
 	auto app = Hazel::CreateApplication();
-	app->Run();
-	delete app;
+	HZ_PROFILE_END_SESSION();
 
+	HZ_PROFILE_BEGIN_SESSION("Runtime", "HazelProfile-Runtime.json");
+	app->Run();
+	HZ_PROFILE_END_SESSION();
+
+	HZ_PROFILE_BEGIN_SESSION("Shutdown", "HazelProfile-Shutdown.json");
+	delete app;
+	HZ_PROFILE_END_SESSION();
 }
 
 #endif // HZ_PLATFORM_WINDOWS
