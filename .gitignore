@@ -1,3 +1,9 @@
+# Already commited files will not be ignored.
+# to remove already commited files
+# git rm -rf <file>
+# example
+# git rm -rf *.json
+
 # Binaries
 bin/
 bin-int/
