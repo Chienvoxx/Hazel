@@ -21,7 +21,8 @@ void Sandbox2D::OnAttach()
 
 	this->m_DebugName = "Sandbox2d_Layer";
 
-	m_CheckerboardTexture = Hazel::Texture2D::Create("assets/textures/checkerboard.png");
+// 	m_CheckerboardTexture = Hazel::Texture2D::Create("assets/textures/checkerboard.png");
+	m_CheckerboardTexture = Hazel::Texture2D::Create("assets/textures/checkerboard_plain.png");
 }
 
 void Sandbox2D::OnDetach()
@@ -52,7 +53,8 @@ void Sandbox2D::OnUpdate(Hazel::Timestep ts)
 		Hazel::Renderer2D::BeginScene(m_CameraController.GetCamera());
 		Hazel::Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.0f }, { 0.25f, 1.0f }, m_SquareColor);
 		Hazel::Renderer2D::DrawQuad({ 1.0f, -0.5f, 0.0f }, { 1.0f, 0.25f }, m_SquareColor * 1.25f);
-		Hazel::Renderer2D::DrawQuad({ 0.0f, 0.5f, -0.1f }, { 10.0f, 10.0f }, m_CheckerboardTexture);
+		Hazel::Renderer2D::DrawRotatedQuad({ 0.0f, 1.0f, 0.0f }, { 1.0f, 0.25f }, m_Rotation1, m_SquareColor * 2.0f);
+		Hazel::Renderer2D::DrawQuad({ 0.0f, 0.5f, -0.1f }, { 10.0f, 10.0f }, m_CheckerboardTexture, Hazel::Renderer2D::s_TilingFactor, m_TintColor);
 		Hazel::Renderer2D::EndScene();
 	}
 }
@@ -63,6 +65,10 @@ void Sandbox2D::OnImGuiRender()
 
 	ImGui::Begin("Settings");
  	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+ 	ImGui::ColorEdit4("Tint Color", glm::value_ptr(m_TintColor));
+	ImGui::DragFloat("Tiling Factor", &Hazel::Renderer2D::s_TilingFactor, 0.01f, -100.0f, 100.0f);
+	ImGui::DragFloat("Rotation1", &m_Rotation1, 0.01f, -100.0f, 100.0f);
+
  
 //  	for (auto& result : m_ProfileResults)
 //  	{

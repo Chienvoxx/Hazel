@@ -25,7 +25,11 @@ namespace Hazel {
 		HZ_CORE_ASSERT(!s_Instance, "Application already exists");
 		s_Instance = this;
 
-		m_Window = std::unique_ptr<Window>(Window::Create());
+		WindowProps props;
+		props.Title = "Hazel Window";
+		props.Width = 1800;
+		props.Height = 900;
+		m_Window = std::unique_ptr<Window>(Window::Create(props));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
 		Renderer::Init();
