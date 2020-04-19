@@ -23,8 +23,9 @@ private:
 	// Temp
 	Hazel::Ref<Hazel::VertexArray> m_SquareVA;
 	Hazel::Ref<Hazel::Shader> m_FlatColorShader;
-	Hazel::Ref<Hazel::Texture> m_CheckerboardTexture;
+	Hazel::Ref<Hazel::Texture2D> m_CheckerboardTexture;
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 	glm::vec4 m_TintColor = { 0.2f, 0.3f, 0.8f, 1.0f };
+	float m_TilingFactor = 1.0;
 	float m_Rotation1 = 0.0f;
 };
