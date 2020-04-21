@@ -16,6 +16,8 @@ public:
 	void OnUpdate(Hazel::Timestep ts) override;
 	void OnImGuiRender() override;
 	void OnEvent(Hazel::Event& event) override;
+	bool OnMouseButtonPressed(Hazel::MouseButtonPressedEvent& event);
+	bool OnKeyPressedEvent(Hazel::KeyPressedEvent& event);
 
 private:
 	Hazel::OrthographicCameraController m_CameraController;
@@ -26,6 +28,8 @@ private:
 	Hazel::Ref<Hazel::Texture2D> m_CheckerboardTexture;
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 0.8f, 1.0f };
 	glm::vec4 m_TintColor = { 0.2f, 0.3f, 0.8f, 1.0f };
-	float m_TilingFactor = 1.0;
+	float m_TilingFactor = 20.0f;
 	float m_Rotation1 = 0.0f;
+	float m_AZDepth = -0.02f;
+	float m_RZDepth = -0.01f;
 };
