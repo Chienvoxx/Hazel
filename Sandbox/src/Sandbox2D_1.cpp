@@ -4,6 +4,7 @@
 #include "Hazel/Renderer/Renderer.h"
 #include "Hazel/Renderer/RendererAPI.h"
 #include "ImGui/imgui.h"
+#include "Hazel/Core/Input.h"
 #include "Platform/OpenGL/OpenGLShader.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -52,26 +53,33 @@ void Sandbox2D_1::OnUpdate(Hazel::Timestep ts)
 	HZ_PROFILE_FUNCTION();
 	// Update
 	{
-		
-		m_CameraController.OnUpdate(ts);
-		float dx = ts.GetMilliseconds();
-		if (dx < 200)
+		m_Quad.m_ScalarTranslationSpeed = m_QuadScalarSpeed;
+		if (m_ToggleCameraMovement)
 		{
-			float newX = m_Quad.position.x;
-			switch (m_ClickState)
-			{
-			case 0:
-				break;
-			case 1:
-				m_Quad.position.x += (dx * 0.005f);
-				break;
-			case 2:
-				m_Quad.position.x -= (dx * 0.005f);
-				break;
-			default:
-				break;
-			}
+			m_CameraController.OnUpdate(ts);
 		}
+		else
+		{
+			m_Quad.OnUpdate(ts);
+		}
+// 		float dx = ts.GetMilliseconds();
+// 		if (dx < 200)
+// 		{
+// 			float newX = m_Quad.position.x;
+// 			switch (m_ClickState)
+// 			{
+// 			case 0:
+// 				break;
+// 			case 1:
+// 				m_Quad.position.x += (dx * 0.005f);
+// 				break;
+// 			case 2:
+// 				m_Quad.position.x -= (dx * 0.005f);
+// 				break;
+// 			default:
+// 				break;
+// 			}
+// 		}
 	}
 
 	// Render
@@ -94,7 +102,6 @@ void Sandbox2D_1::OnUpdate(Hazel::Timestep ts)
 		Hazel::Renderer2D::DrawRotatedQuad({ 0.0f, 1.0f, 0.0f }, { 1.0f, 0.25f }, m_Rotation1, { 0.2f, 0.3f, 0.8f, 1.0f });
 
 		Hazel::Renderer2D::EndScene();
-
 	}
 }
 
@@ -104,19 +111,26 @@ void Sandbox2D_1::OnImGuiRender()
 	ImGui::ColorEdit4("Clear Color", glm::value_ptr(m_ClearColor));
 	ImGui::DragFloat("Rotation", &m_Rotation1, 0.001f, 0.0f, 0.0f, "%.3f", 1.0f);
 	ImGui::DragFloat2("Window Size", m_WindowDim);
+	if (ImGui::Button("Camera"))
+		m_ToggleCameraMovement = !m_ToggleCameraMovement;
+	ImGui::DragFloat("Quad Scalar Speed", &m_QuadScalarSpeed, 0.01f, 0.0f, 20.0f, "%.2f", 1.0f);
 // 	ImGui::ShowDemoWindow(&demoWindow);
 // 	ImGui::ShowUserGuide();
 // 	ImGui::ShowMetricsWindow(&metricsWindow);
 	ImGui::End();
 }
 
-void Sandbox2D_1::OnEvent(Hazel::Event& event)
+void Sandbox2D_1::OnEvent(Hazel::Event& e)
 {
-	m_CameraController.OnEvent(event);
-
-	if (!event.Handled && (event.GetEventType() == Hazel::EventType::MouseButtonPressed))
+// 	m_CameraController.OnEvent(event);
+	if (!e.Handled && (e.GetEventType() == Hazel::EventType::KeyPressed))
 	{
-		Hazel::EventDispatcher dispatcher(event);
+		Hazel::EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<Hazel::KeyPressedEvent>(HZ_BIND_EVENT_FN(Sandbox2D_1::OnKeyPressedEvent));
+	}
+	if (!e.Handled && (e.GetEventType() == Hazel::EventType::MouseButtonPressed))
+	{
+		Hazel::EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<Hazel::MouseButtonPressedEvent>(HZ_BIND_EVENT_FN(Sandbox2D_1::OnMouseButtonPressed));
 	}
 }
@@ -130,7 +144,20 @@ bool Sandbox2D_1::OnMouseButtonPressed(Hazel::MouseButtonPressedEvent& e)
 	return false;
 }
 
-bool Sandbox2D_1::OnKeyPressedEvent(Hazel::KeyPressedEvent& event)
+bool Sandbox2D_1::OnKeyPressedEvent(Hazel::KeyPressedEvent& e)
 {
 	return false;
+}
+
+
+void Quad::OnUpdate(Hazel::Timestep ts)
+{
+	if (Hazel::Input::IsKeyPressed(HZ_KEY_W))
+		position.y += m_ScalarTranslationSpeed * ts;
+	else if (Hazel::Input::IsKeyPressed(HZ_KEY_S))
+		position.y -= m_ScalarTranslationSpeed * ts;
+	if (Hazel::Input::IsKeyPressed(HZ_KEY_A))
+		position.x -= m_ScalarTranslationSpeed * ts;
+	else if (Hazel::Input::IsKeyPressed(HZ_KEY_D))
+		position.x += m_ScalarTranslationSpeed * ts;
 }

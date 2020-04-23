@@ -17,11 +17,13 @@ public:
 	}
 	void Draw() { Hazel::Renderer2D::DrawQuad({ position.x, position.y, position.z }, { size.x, size.y }, { color.r, color.g, color.b, color.a }); }
 	void OnEvent(Hazel::Event& event)  {}
+	void OnUpdate(Hazel::Timestep ts);
 	glm::vec3 position;
 	glm::vec2 size;
 	glm::vec4 color;
 	glm::vec2 direction;
 	glm::vec3 speed;
+	float m_ScalarTranslationSpeed = 0.1f;
 };
 
 class Hazel::Application;
@@ -43,6 +45,7 @@ public:
 private:
 	std::shared_ptr<Hazel::Application> app;
 	Hazel::OrthographicCameraController m_CameraController;
+	bool m_ToggleCameraMovement = false;
 
 	// Temp
  	glm::vec4 m_ClearColor = { 0.094f, 0.141f, 0.176f, 1.0f };
@@ -61,4 +64,5 @@ private:
 
 	Quad m_Quad;
 	int m_ClickState = 0;
+	float m_QuadScalarSpeed = 0.5f;
 };
