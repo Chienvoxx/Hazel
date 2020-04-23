@@ -10,6 +10,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Sandbox2D.h"
+#include "Sandbox2D_1.h"
 
 
 class TestLayer : public Hazel::Layer
@@ -294,7 +295,8 @@ public:
 	{
 // 		PushLayer(new ExampleLayer());
 // 		PushLayer(new TestLayer());
-		PushLayer(new Sandbox2D());
+// 		PushLayer(new Sandbox2D());
+		PushLayer(new Sandbox2D_1(this->GetPtr()));
 	}
 
 	~Sandbox()

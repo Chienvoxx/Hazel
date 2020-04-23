@@ -26,6 +26,7 @@ namespace Hazel {
 	private:
 		float m_AspectRatio;
 		float m_ZoomLevel = 10.0;
+		float m_ZoomClamp = 1.0f;
 		OrthographicCamera m_Camera;
 
 		bool m_Rotation;

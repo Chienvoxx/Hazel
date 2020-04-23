@@ -77,6 +77,13 @@ namespace Hazel {
 		//glfwTerminate();
 	}
 
+	void ImGuiLayer::OnEvent(Event& e)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		if (io.WantCaptureMouse || io.WantCaptureKeyboard || io.WantTextInput)
+			e.Handled = true;
+	}
+
 // 	void ImGuiLayer::OnImGuiRender()
 // 	{
 // 		static bool p_open = true;

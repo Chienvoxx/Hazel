@@ -4,7 +4,12 @@
 namespace Hazel {
 
 	Layer::Layer(const std::string& debugName)
-		: m_DebugName(debugName)
+		: m_pApp(nullptr), m_DebugName(debugName)
+	{
+	}
+
+	Layer::Layer(Application* app, const std::string& debugName)
+		:m_pApp(app), m_DebugName(debugName)
 	{
 	}
 

@@ -27,8 +27,8 @@ namespace Hazel {
 
 		WindowProps props;
 		props.Title = "Hazel Window";
-		props.Width = 1800;
-		props.Height = 900;
+		props.Width = 2700;
+		props.Height = 1600;
 		m_Window = std::unique_ptr<Window>(Window::Create(props));
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
 
@@ -64,7 +64,7 @@ namespace Hazel {
 		layer->OnAttach();
 	}
 
-	void Application::OnEvent(Event & e)
+	void Application::OnEvent(Event& e)
 	{
 		HZ_PROFILE_FUNCTION();
 
@@ -72,8 +72,6 @@ namespace Hazel {
 
 		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
-
-		//HZ_CORE_TRACE("{0}", e);
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
 		{

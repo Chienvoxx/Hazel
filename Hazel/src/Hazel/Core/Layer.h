@@ -7,10 +7,14 @@
 
 namespace Hazel {
 
+	class Application;
+
 	class Layer
 	{
 	public:
 		Layer(const std::string& name = "Layer");
+ 		Layer(Application* app, const std::string& name = "Layer");
+
 		virtual ~Layer();
 
 		virtual void OnAttach() {}
@@ -22,5 +26,6 @@ namespace Hazel {
 		inline const std::string& GetName() const { return m_DebugName; }
 	protected:
 		std::string m_DebugName;
+ 		Application* m_pApp;
 	};
 }
