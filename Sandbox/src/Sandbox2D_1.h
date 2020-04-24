@@ -6,6 +6,13 @@
 #include <memory>
 
 
+struct AABB
+{
+	float top;
+	float bottom;
+	float left;
+	float right;
+};
 
 class Quad
 {
@@ -18,6 +25,8 @@ public:
 	void Draw() { Hazel::Renderer2D::DrawQuad({ position.x, position.y, position.z }, { size.x, size.y }, { color.r, color.g, color.b, color.a }); }
 	void OnEvent(Hazel::Event& event)  {}
 	void OnUpdate(Hazel::Timestep ts);
+	void UpdateAABB();
+	AABB aabb;
 	glm::vec3 position;
 	glm::vec2 size;
 	glm::vec4 color;
@@ -62,7 +71,31 @@ private:
 	float m_WindowWidth;
 	float m_WindowHeight;
 
-	Quad m_Quad;
 	int m_ClickState = 0;
-	float m_QuadScalarSpeed = 0.5f;
+	float m_QuadScalarSpeed = 20.0f;
+	Quad m_Quad;
+
+	Quad mTopWall;
+	Quad mBottomWall;
+	Quad mLeftWall;
+	Quad mRightWall;
+	Quad mPong;
+	Quad mPaddle;
+	std::vector<Quad> mStaticQuads;
+
+	float mSceneHeight			= 15.0f;
+	float mSceneWidth			= 20.0f;
+	float mWallWidth			= 0.1f;
+	float mLeftWallPos			= -(mSceneWidth / 2);
+	float mRightWallPos			=  (mSceneWidth / 2);
+	float mTopWallPos			= -(mSceneHeight / 2);
+	float mBottomWallPos		=  (mSceneHeight / 2);
+	float mPongStartPos			= 0.0f;
+	float mPongSize				= 0.25f;
+	float mPaddleStartPos		= -(mSceneWidth / 2) + 0.5f;
+	float mPaddleWidth			= 0.25f;
+	float mPaddleHeight			= 2.0f;
+	glm::vec2 mPaddleMotionAxis	= { 1.0f, 0.0 };
+	float mCCE					= 2.0f;		// scale clear color this amount for wall color
+	glm::vec4 mWallColor		= { m_ClearColor.r * mCCE, m_ClearColor.g * mCCE , m_ClearColor.b * mCCE , 1.0f};
 };
